@@ -14,6 +14,10 @@ function RouteGuard({ children }: { children: React.ReactNode }) {
     }
   });
 
+  // if(!isAuth) {
+  //   return <Link href="/auth" replace={true} />; // Redirect to auth page if not authenticated
+  // }
+
   return <>{children}</>;
 }
 
