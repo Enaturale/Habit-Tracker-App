@@ -35,6 +35,8 @@ export default function AuthScreen() {
         return;
     }
 
+    setError(null); //to reset the error message 
+
   }
     
   return (
