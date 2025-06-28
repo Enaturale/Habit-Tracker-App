@@ -1,3 +1,4 @@
+import { AuthProvider } from "@/lib/auth-context";
 import { useRouter, Stack, Link } from "expo-router";
 import { useEffect } from "react";
 
@@ -23,6 +24,7 @@ function RouteGuard({ children }: { children: React.ReactNode }) {
 
 export default function RootLayout() {
   return (
+    <AuthProvider>
     <RouteGuard>
       <Stack>
         <Stack.Screen
@@ -31,5 +33,6 @@ export default function RootLayout() {
         />
       </Stack>
     </RouteGuard>
+    </AuthProvider>
   );
 }

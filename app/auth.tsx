@@ -1,4 +1,6 @@
+import { useAuth } from "@/lib/auth-context";
 import { useState} from "react";
+import { useRouter } from "expo-router";
 import { KeyboardAvoidingView, Platform, StyleSheet, View} from "react-native";
 
 import { Button, Text, TextInput, useTheme } from "react-native-paper";
@@ -21,6 +23,11 @@ export default function AuthScreen() {
     //them for error messages
     const theme = useTheme();
 
+    const router = useRouter();
+
+    //calling the sign in and sign up functions from the auth context
+    const { signIn, signUp } = useAuth();
+
   //to handle the authentication logic, you can add your API calls here
   const handleAuth = async () => {
     //check if the email and password fields are filled
@@ -36,6 +43,23 @@ export default function AuthScreen() {
     }
 
     setError(null); //to reset the error message 
+
+    if (isSignup) {
+      const error = await signUp(email, password)
+      if (error){
+        setError(error);
+        return;
+      }
+
+    } else{
+      const error = await signIn(email, password)
+       if (error){
+        setError(error);
+        return;
+      }
+       router.replace("/"); //redirect to the home page after successful sign in
+
+    }
 
   }
     
@@ -66,7 +90,7 @@ export default function AuthScreen() {
           style={styles.input}
           label="Password"
           autoCapitalize="none"
-          keyboardType="email-address"
+          secureTextEntry
           placeholder="********"
           mode="outlined"
           onChangeText={setPassword}
