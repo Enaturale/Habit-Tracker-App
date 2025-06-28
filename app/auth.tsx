@@ -17,6 +17,7 @@ export default function AuthScreen() {
   //states to keep track of the input values
   const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+
     //state to keep track of the error messages
     const [error, setError] = useState<string | null>("");
 
@@ -32,18 +33,18 @@ export default function AuthScreen() {
   const handleAuth = async () => {
     //check if the email and password fields are filled
     if(!email || !password){
-        setError("Please fill in all fields!");
+        setError("Please, fill in all fields!");
         return;
     }
 
     //check if the password is at least 6 characters long
     if(password.length < 6){
-        setError("Password must be at least 6 characters long.");
+        setError("Passwords must be at least 6 characters long.");
         return;
     }
 
     setError(null); //to reset the error message 
-
+ 
     if (isSignup) {
       const error = await signUp(email, password)
       if (error){
